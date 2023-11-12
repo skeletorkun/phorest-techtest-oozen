@@ -60,8 +60,9 @@ We would prefer to see a partial solution which is accompanied by tests, than a 
 
 # Notes on Submission
 
-* Chose to implement in Kotlin instead of Java. Thanks for the learning opportunity.
-*
+* Chose to implement in Kotlin instead of Java.
+* Committed directly to main branch. Ideally we would provide a pull request to a protected (master) branch.  
+  branch
 
 Please submit your solution in the form of a link to a public source control repository which contains your code e.g Github, Gitlab etc.
 Ideally we would like to see the development progress by viewing commits history. 
