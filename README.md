@@ -31,10 +31,37 @@ Clients have a boolean banned property defined on the client
 
 # Service at a glance
 
-How to run:
+Running the application
 
 ```
 ./gradlew bootRun
+```
+
+H2 Console
+
+```
+http://localhost:8080/h2-console
+```
+
+### Examples
+
+Creating a new Appointment
+
+```
+curl --location 'http://localhost:8080/v1/appointments' \
+--header 'Content-Type: application/json' \
+--data '{
+  "clientId": "e0b8ebfc-6e57-4661-9546-328c644a3764",
+  "startTime": "2016-02-07 17:15:00 +0100",
+  "endTime": "2016-02-07 17:15:00 +0100"
+}'
+```
+
+Retrieving an Appointment by id
+
+```
+curl --location 'http://localhost:8080/v1/appointments/123' \
+--header 'Content-Type: application/json'
 ```
 
 We would expect a simple web application that would expose few REST api endpoints:
@@ -65,4 +92,4 @@ We would prefer to see a partial solution which is accompanied by tests, than a 
   branch
 
 Please submit your solution in the form of a link to a public source control repository which contains your code e.g Github, Gitlab etc.
-Ideally we would like to see the development progress by viewing commits history. 
+Ideally we would like to see the development progress by viewing commits history.

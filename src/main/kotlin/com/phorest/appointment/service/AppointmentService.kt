@@ -1,7 +1,9 @@
 package com.phorest.appointment.service
 
-import com.phorest.appointment.dto.Appointment
+import com.phorest.appointment.domain.Appointment
+import com.phorest.appointment.dto.AppointmentDto
 
-fun interface AppointmentService {
-    fun retrieveAppointment(id: Long): Appointment;
+interface AppointmentService {
+    fun retrieveAppointment(id: Long): Appointment
+    fun addAppointment(appointmentDto: AppointmentDto): AppointmentDto
 }
