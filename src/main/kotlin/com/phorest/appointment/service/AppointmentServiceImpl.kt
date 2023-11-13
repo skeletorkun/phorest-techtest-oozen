@@ -17,7 +17,6 @@ class AppointmentServiceImpl(val appointmentRepository: AppointmentRepository) :
         logger.debug { "retrieving appointment id $id" }
         return Appointment(
             UUID.randomUUID(),
-            UUID.randomUUID(),
             parseOffsetDateTime("2018-05-31 14:30:00 +0100"),
             parseOffsetDateTime("2018-05-31 14:40:00 +0100"),
         )
@@ -26,14 +25,14 @@ class AppointmentServiceImpl(val appointmentRepository: AppointmentRepository) :
     override fun addAppointment(appointmentDto: AppointmentDto): AppointmentDto {
         logger.debug { "Adding appointment $appointmentDto" }
         val appointmentEntity = appointmentDto.let {
-            Appointment(null, appointmentDto.clientId, appointmentDto.startTime, appointmentDto.endTime)
+            Appointment(null, appointmentDto.startTime, appointmentDto.endTime)
         }
 
         appointmentRepository.save(appointmentEntity)
         logger.debug { "Saved appointment $appointmentEntity" }
 
         return appointmentEntity.let {
-            AppointmentDto(appointmentEntity.id, appointmentEntity.clientId, appointmentEntity.startTime, appointmentEntity.endTime)
+            AppointmentDto(appointmentEntity.id, UUID.randomUUID(), appointmentEntity.startTime, appointmentEntity.endTime)
         }
     }
 }
