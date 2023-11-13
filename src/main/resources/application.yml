@@ -13,3 +13,9 @@ spring:
   h2:
     console:
       enabled: true
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.phorest: DEBUG
+    org.hibernate: INFO

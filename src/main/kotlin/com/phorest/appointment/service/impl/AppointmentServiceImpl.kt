@@ -1,8 +1,9 @@
-package com.phorest.appointment.service
+package com.phorest.appointment.service.impl
 
 import com.phorest.appointment.domain.Appointment
 import com.phorest.appointment.dto.AppointmentDto
 import com.phorest.appointment.repository.AppointmentRepository
+import com.phorest.appointment.service.AppointmentService
 import com.phorest.appointment.util.DateUtils.Companion.parseOffsetDateTime
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service

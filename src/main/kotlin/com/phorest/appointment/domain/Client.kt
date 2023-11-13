@@ -1,5 +1,6 @@
 package com.phorest.appointment.domain
 
+import com.opencsv.bean.CsvBindByName
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -15,12 +16,25 @@ data class Client(
     @Id
     @GeneratedValue(generator = "uuid2")
     @Column(name = "id", columnDefinition = "VARCHAR(255)")
+    @CsvBindByName(column = "id")
     val id: UUID?,
+
+    @CsvBindByName(column = "first_name")
     val firstName: String,
+
+    @CsvBindByName(column = "last_name")
     val lastName: String,
+
+    @CsvBindByName(column = "email")
     val email: String,
+
+    @CsvBindByName(column = "phone")
     val phone: String,
+
+    @CsvBindByName(column = "gender")
     val gender: String,
+
+    @CsvBindByName(column = "banned")
     val isBanned: Boolean = false,
 
     @OneToMany(
