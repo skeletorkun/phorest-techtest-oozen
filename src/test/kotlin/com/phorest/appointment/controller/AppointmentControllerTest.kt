@@ -2,7 +2,9 @@ package com.phorest.appointment.controller
 
 import com.phorest.appointment.dto.AppointmentDto
 import com.phorest.appointment.util.DateUtils
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
@@ -38,7 +40,7 @@ internal class AppointmentControllerTest {
         val clientId = UUID.randomUUID()
         val startTime = DateUtils.parseOffsetDateTime("2018-05-02 12:45:00 +0100")
         val endTime = DateUtils.parseOffsetDateTime("2018-05-02 13:45:00 +0100")
-        val appointmentDto = AppointmentDto(null, clientId, startTime, endTime)
+        val appointmentDto = AppointmentDto(UUID.randomUUID(), startTime, endTime, clientId)
         val appointmentDtoResult = webTestClient.post()
             .uri("/v1/appointments")
             .bodyValue(appointmentDto)

@@ -90,6 +90,12 @@ We would prefer to see a partial solution which is accompanied by tests, than a 
 * Chose to implement in Kotlin instead of Java.
 * Committed directly to main branch. Ideally we would provide a pull request to a protected (master) branch.  
   branch
+* Learning & References:
+    * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
+    * https://codersee.com/upload-csv-file-in-spring-boot-rest-api-with-kotlin-and-opencsv
 
-Please submit your solution in the form of a link to a public source control repository which contains your code e.g Github, Gitlab etc.
+    *
+
+Please submit your solution in the form of a link to a public source control repository which contains your code e.g Github, Gitlab
+etc.
 Ideally we would like to see the development progress by viewing commits history.

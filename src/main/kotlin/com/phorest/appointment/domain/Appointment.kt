@@ -2,7 +2,12 @@ package com.phorest.appointment.domain
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.phorest.appointment.util.Constants
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import org.hibernate.Hibernate
 import java.time.OffsetDateTime
 import java.util.*
@@ -11,13 +16,12 @@ import java.util.*
 data class Appointment(
 
     @Id
-    @GeneratedValue(generator = "uuid2")
     @Column(name = "id", columnDefinition = "VARCHAR(255)")
-    val id: UUID?,
+    val id: UUID,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.PHOREST_OFFSET_DATE_TIME_FORMAT)
-    val startTime: OffsetDateTime,
+    val startTime: OffsetDateTime? = null,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.PHOREST_OFFSET_DATE_TIME_FORMAT)
-    val endTime: OffsetDateTime,
+    val endTime: OffsetDateTime? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)

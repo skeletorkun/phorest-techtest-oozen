@@ -1,13 +1,22 @@
 package com.phorest.appointment.dto
 
+import com.opencsv.bean.CsvBindByName
 import java.util.*
 
+
 data class ClientDto(
-    val id: UUID?,
-    val firstName: String,
-    val lastName: String,
-    val email: String,
-    val phone: String,
-    val gender: String,
-    val idBanned: Boolean = false,
+    @CsvBindByName(column = "id")
+    val id: UUID = UUID.randomUUID(),
+    @CsvBindByName(column = "first_name")
+    val firstName: String = "",
+    @CsvBindByName(column = "last_name")
+    val lastName: String = "",
+    @CsvBindByName(column = "email")
+    val email: String = "",
+    @CsvBindByName(column = "phone")
+    val phone: String = "",
+    @CsvBindByName(column = "gender")
+    val gender: String = "",
+    @CsvBindByName(column = "banned")
+    val isBanned: Boolean = false,
 )

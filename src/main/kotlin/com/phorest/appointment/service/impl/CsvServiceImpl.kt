@@ -1,9 +1,9 @@
 package com.phorest.appointment.service.impl
 
-import com.codersee.csvupload.exception.BadRequestException
-import com.codersee.csvupload.exception.CsvImportException
 import com.opencsv.bean.CsvToBean
 import com.opencsv.bean.CsvToBeanBuilder
+import com.phorest.appointment.exception.BadRequestException
+import com.phorest.appointment.exception.CsvImportException
 import com.phorest.appointment.service.CsvService
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile

@@ -6,4 +6,6 @@ import com.phorest.appointment.dto.AppointmentDto
 interface AppointmentService {
     fun retrieveAppointment(id: Long): Appointment
     fun addAppointment(appointmentDto: AppointmentDto): AppointmentDto
+    fun saveAppointments(appointmentDtoList: List<AppointmentDto>): List<AppointmentDto>
+
 }
