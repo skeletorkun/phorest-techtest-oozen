@@ -1,6 +1,5 @@
 package com.phorest.appointment.controller
 
-import com.phorest.appointment.domain.Appointment
 import com.phorest.appointment.dto.AppointmentDto
 import com.phorest.appointment.service.AppointmentService
 import com.phorest.appointment.service.CsvService
@@ -9,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import java.util.*
 
 @RestController
 @RequestMapping("/v1/appointments")
@@ -17,7 +17,7 @@ private class AppointmentController(val appointmentService: AppointmentService, 
     private val logger = KotlinLogging.logger {}
 
     @GetMapping("/{id}")
-    fun retrieveAppointment(@PathVariable("id") id: Long): Appointment {
+    fun retrieveAppointment(@PathVariable("id") id: UUID): AppointmentDto {
         return appointmentService.retrieveAppointment(id);
     }
 

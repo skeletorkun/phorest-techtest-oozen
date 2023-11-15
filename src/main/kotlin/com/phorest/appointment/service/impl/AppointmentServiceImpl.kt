@@ -1,11 +1,11 @@
 package com.phorest.appointment.service.impl
 
 import com.phorest.appointment.domain.Appointment
+import com.phorest.appointment.domain.toDto
 import com.phorest.appointment.dto.AppointmentDto
 import com.phorest.appointment.repository.AppointmentRepository
 import com.phorest.appointment.repository.ClientRepository
 import com.phorest.appointment.service.AppointmentService
-import com.phorest.appointment.util.DateUtils.Companion.parseOffsetDateTime
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 import java.util.*
@@ -18,48 +18,40 @@ class AppointmentServiceImpl(
 
     private val logger = KotlinLogging.logger {}
 
-    override fun retrieveAppointment(id: Long): Appointment {
+    override fun retrieveAppointment(id: UUID): AppointmentDto {
         logger.debug { "retrieving appointment id $id" }
-        return Appointment(
-            UUID.randomUUID(),
-            parseOffsetDateTime("2018-05-31 14:30:00 +0100"),
-            parseOffsetDateTime("2018-05-31 14:40:00 +0100"),
-        )
+        val appointment = appointmentRepository.findById(id).orElseThrow()
+        return appointment.toDto()
     }
 
     override fun addAppointment(appointmentDto: AppointmentDto): AppointmentDto {
         logger.debug { "Adding appointment $appointmentDto" }
-        val appointmentEntity = Appointment(UUID.randomUUID(), appointmentDto.startTime, appointmentDto.endTime)
+        val appointmentEntity = getAppointmentEntity(appointmentDto)
 
-        appointmentRepository.save(appointmentEntity)
+        val savedEntity = appointmentRepository.save(appointmentEntity)
         logger.debug { "Saved appointment $appointmentEntity" }
 
-        return AppointmentDto(
-            appointmentEntity.id,
-            appointmentEntity.startTime,
-            appointmentEntity.endTime,
-            appointmentEntity.client!!.id
-        ) // TODO remove or fix
+        return savedEntity.toDto()
     }
 
     override fun saveAppointments(appointmentDtoList: List<AppointmentDto>): List<AppointmentDto> {
         val entities = appointmentDtoList.map {
-            Appointment(
-                it.id,
-                it.startTime,
-                it.endTime,
-                it.clientId?.let { it1 -> clientRepository.findById(it1).orElseThrow() }
-            )
+            getAppointmentEntity(it)
         }
         val savedAppointments = appointmentRepository.saveAll(entities)
 
         return savedAppointments.map {
-            AppointmentDto(
-                it.id,
-                it.startTime,
-                it.endTime,
-                it.client?.id,
-            )
+            it.toDto()
         }
     }
+
+    private fun getAppointmentEntity(appointmentDto: AppointmentDto) = Appointment(
+        appointmentDto.id,
+        appointmentDto.startTime,
+        appointmentDto.endTime,
+        appointmentDto.clientId?.let { clientRepository.findById(it).orElseThrow() }
+    )
 }
+
+
+

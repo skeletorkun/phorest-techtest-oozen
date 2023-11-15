@@ -13,9 +13,14 @@ spring:
   h2:
     console:
       enabled: true
-
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+      
 logging:
   level:
     org.springframework.web: DEBUG
     com.phorest: DEBUG
     org.hibernate: INFO
+

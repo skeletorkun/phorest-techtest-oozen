@@ -1,43 +1,28 @@
 # Appointment Service
 
-*Comb as You Are* have decided to ditch their old salon software provider
-and upgrade to *Phorest* to avail of its best in class client retention tools.
-They're excited to finally offer their clients the opportunity to book online.
+A microservice that exposes REST endpoints
 
-They've exported their clients appointment data from their old provider and
-would like to email their top 50 most loyal clients of the past year with the news
-that they can now book their next appointment online.
+* to parse CSV files - up to 2MB - to store in-memory DB (H2)
+* to list the top X number (endpoint parameter eg: 50) of clients that have accumulated the most loyalty points since Y date (
+  endpoint parameter eg: 2018-01-01) - excluding any banned clients.
+* to update one of the entities
+* to fetch a single entity by id
+* to delete one of the entities
 
 # System requirements
 
 * Spring Boot 3.1.5
 * Kotlin 1.8 / Java 17
-*
 
-# Structure
+# How to
 
-The exported data is split across 4 files.
-
-* clients.csv
-* appointments.csv
-* services.csv
-* purchases.csv
-
-Each client has many appointments and are related through a `client_id` property on the appointment
-Each appointment has many services and are related through an `appointment_id` property on the service
-Each appointment has 0 or many purchases and are related through an `appointment_id` property on the purchase
-Services and purchases have an associated number of loyalty points defined as a property
-Clients have a boolean banned property defined on the client
-
-# Service at a glance
-
-Running the application
+Run the application
 
 ```
 ./gradlew bootRun
 ```
 
-H2 Console
+Launch H2 Console
 
 ```
 http://localhost:8080/h2-console
@@ -60,7 +45,7 @@ curl --location 'http://localhost:8080/v1/appointments' \
 Retrieving an Appointment by id
 
 ```
-curl --location 'http://localhost:8080/v1/appointments/123' \
+curl --location 'http://localhost:8080/v1/appointments/e0b8ebfc-6e57-4661-9546-328c644a3764' \
 --header 'Content-Type: application/json'
 ```
 
@@ -81,21 +66,26 @@ Endpoints should be designed with RESTful best practices. Request/response bodie
 Do as much as you can in the time you have available to you. Please still submit your solution even if it's not complete. You can always add
 a few notes stating what's missing and/or how you would improve the solution if you had more time.
 
-## Testing
-
-We would prefer to see a partial solution which is accompanied by tests, than a fully working solution without tests.
-
 # Notes on Submission
 
-* Chose to implement in Kotlin instead of Java.
+* Chose to implement in Kotlin instead of Java. Omitted Javadoc on methods for brevity.
 * Committed directly to main branch. Ideally we would provide a pull request to a protected (master) branch.  
   branch
+* A note on Testing and coverage:
+    * Created only a handful tests mostly around appointments - the central object.
+    * Tests on the other services and entity relationships are omitted for now for time sake.
+        * AppointmentControllerTest.csvImport - an end-to-end test that covers the entire flow from controller to repository
+            * with entity relationships
+            * CSV import functionality
+    * We would ideally keep only a handful of end-to-end tests and have more integration tests and a lot of unit tests.
+    * No libs were used apart from Junit. we could use
+        * Web layer Unit testing using MockMvc, Mockito or similar
+        * RestAssured for integration testing
+    * Ideally method names would follow a more scalable convention (e.g. If/When/Then..)
+
 * Learning & References:
     * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
     * https://codersee.com/upload-csv-file-in-spring-boot-rest-api-with-kotlin-and-opencsv
-
     *
 
-Please submit your solution in the form of a link to a public source control repository which contains your code e.g Github, Gitlab
-etc.
-Ideally we would like to see the development progress by viewing commits history.
+* Some commits are without tests, ideally we could break a feature in small PRs with good test coverage, squashed commits..etc  
