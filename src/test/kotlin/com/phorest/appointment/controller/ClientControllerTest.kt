@@ -105,5 +105,27 @@ internal class ClientControllerTest {
         // assert db is empty
         assertEquals(0, clientRepository.count())
     }
+
+
+    @Test
+    fun csvImportEmptyFile_shouldThrow() {
+
+        // prepare
+        val file = ClassPathResource("csv/empty.csv").file
+
+        val multipartBodyBuilder = MultipartBodyBuilder()
+        multipartBodyBuilder.part("file", FileSystemResource(file)).filename(file.name)
+
+        // action
+        webTestClient.post()
+            .uri("/v1/clients/csv")
+            .contentType(MediaType.MULTIPART_FORM_DATA)
+            .body(BodyInserters.fromMultipartData(multipartBodyBuilder.build()))
+            .exchange()
+            .expectStatus().is4xxClientError
+
+        // assert db is empty
+        assertEquals(0, clientRepository.count())
+    }
 }
 
