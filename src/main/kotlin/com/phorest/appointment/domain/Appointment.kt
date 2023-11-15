@@ -35,7 +35,14 @@ data class Appointment(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val purchases: List<Purchase> = mutableListOf()
+    val purchases: List<Purchase> = mutableListOf(),
+
+    @OneToMany(
+        mappedBy = "appointment",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val services: List<Service> = mutableListOf()
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -49,13 +56,16 @@ data class Appointment(
 
     @Override
     override fun toString(): String {
-        return this::class.simpleName + "(id = $id , clientId = $client?.id , startTime = $startTime , endTime = $endTime )"
+        return this::class.simpleName + "(id = $id )"
     }
+
 }
 
 fun Appointment.toDto() = AppointmentDto(
     this.id,
     this.startTime,
     this.endTime,
-    this.client!!.id
+    this.client!!.id,
+    this.purchases.map { it.id.toString() },
+    this.services.map { it.id.toString() },
 )

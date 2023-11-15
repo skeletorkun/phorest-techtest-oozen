@@ -17,6 +17,11 @@ class AppointmentServiceImpl(
 ) : AppointmentService {
 
     private val logger = KotlinLogging.logger {}
+    override fun retrieveAppointments(): List<AppointmentDto> {
+        logger.debug { "retrieving appointments" }
+        val appointment = appointmentRepository.findAll()
+        return appointment.map { it.toDto() }
+    }
 
     override fun retrieveAppointment(id: UUID): AppointmentDto {
         logger.debug { "retrieving appointment id $id" }

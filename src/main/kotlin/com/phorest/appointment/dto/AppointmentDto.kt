@@ -24,4 +24,7 @@ data class AppointmentDto(
 
     @CsvBindByName(column = "client_id")
     val clientId: UUID? = null,
+
+    val purchases: List<String>? = mutableListOf(),
+    val services: List<String>? = mutableListOf(),
 )

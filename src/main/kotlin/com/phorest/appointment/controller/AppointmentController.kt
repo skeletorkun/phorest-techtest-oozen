@@ -16,6 +16,12 @@ private class AppointmentController(val appointmentService: AppointmentService, 
 
     private val logger = KotlinLogging.logger {}
 
+
+    @GetMapping
+    fun retrieveAppointments(): List<AppointmentDto> {
+        return appointmentService.retrieveAppointments();
+    }
+
     @GetMapping("/{id}")
     fun retrieveAppointment(@PathVariable("id") id: UUID): AppointmentDto {
         return appointmentService.retrieveAppointment(id);

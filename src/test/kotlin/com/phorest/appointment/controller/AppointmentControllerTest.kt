@@ -60,7 +60,6 @@ internal class AppointmentControllerTest {
     @Test
     fun retrieveAppointment() {
 
-        // create an appointment
         val savedAppointment = appointmentRepository.save(
             Appointment(
                 UUID.randomUUID(),
