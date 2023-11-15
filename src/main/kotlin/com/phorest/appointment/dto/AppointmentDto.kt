@@ -26,5 +26,4 @@ data class AppointmentDto(
     val clientId: UUID? = null,
 
     val purchases: List<String>? = mutableListOf(),
-    val services: List<String>? = mutableListOf(),
 )

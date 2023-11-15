@@ -1,6 +1,7 @@
 package com.phorest.appointment.controller
 
 import com.phorest.appointment.dto.PurchaseDto
+import com.phorest.appointment.enums.PurchaseType
 import com.phorest.appointment.service.CsvService
 import com.phorest.appointment.service.PurchaseService
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -16,14 +17,15 @@ private class PurchaseController(val purchaseService: PurchaseService, val csvSe
 
     @PostMapping("/csv")
     fun uploadCsvFile(
-        @RequestParam("file") file: MultipartFile
+        @RequestParam("file") file: MultipartFile,
+        @RequestParam("type") type: PurchaseType,
     ): ResponseEntity<List<PurchaseDto>> {
         logger.debug { "uploadCsvFile ${file.name}" }
 
         val purchaseDtos = csvService.uploadCsvFile(file, PurchaseDto::class.java)
         logger.debug { "parsed ${purchaseDtos.size} purchases successfully" }
 
-        val savedPurchases = purchaseService.savePurchases(purchaseDtos)
+        val savedPurchases = purchaseService.savePurchases(purchaseDtos, type)
         logger.debug { "saved  ${savedPurchases.size} purchases successfully" }
 
         return ResponseEntity.ok(savedPurchases)

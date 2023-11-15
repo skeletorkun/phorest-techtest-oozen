@@ -1,5 +1,6 @@
 package com.phorest.appointment.domain
 
+import com.phorest.appointment.enums.PurchaseType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
@@ -17,6 +18,7 @@ data class Purchase(
     val name: String? = null,
     val price: Double? = null,
     val loyaltyPoints: Int? = null,
+    val type: PurchaseType? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_id", nullable = false)

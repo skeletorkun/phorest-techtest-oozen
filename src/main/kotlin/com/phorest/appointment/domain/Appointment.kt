@@ -37,13 +37,7 @@ data class Appointment(
     )
     val purchases: List<Purchase> = mutableListOf(),
 
-    @OneToMany(
-        mappedBy = "appointment",
-        cascade = [CascadeType.ALL],
-        orphanRemoval = true
-    )
-    val services: List<Service> = mutableListOf()
-) {
+    ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
@@ -67,5 +61,4 @@ fun Appointment.toDto() = AppointmentDto(
     this.endTime,
     this.client!!.id,
     this.purchases.map { it.id.toString() },
-    this.services.map { it.id.toString() },
 )

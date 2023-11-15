@@ -2,9 +2,11 @@
 
 A microservice that exposes REST endpoints
 
-* to parse CSV files - up to 2MB - to store in-memory DB (H2)
-* to list the top X number (endpoint parameter eg: 50) of clients that have accumulated the most loyalty points since Y date (
-  endpoint parameter eg: 2018-01-01) - excluding any banned clients.
+* to parse CSV files to store in-memory DB (H2)
+* to list the top X number (endpoint parameter eg: 50) of clients that
+    * have accumulated the most loyalty points
+    * since Y date (endpoint parameter eg: 2018-01-01)
+    * excluding any banned clients.
 * to update one of the entities
 * to fetch a single entity by id
 * to delete one of the entities
@@ -27,6 +29,11 @@ Launch H2 Console
 ```
 http://localhost:8080/h2-console
 ```
+
+Populate the DB
+
+* Parse CSV files separately for each resource, in-order: clients, appointments, services &/ purchases
+* File size is limited to 2MB (see application.yaml)
 
 ### Examples
 
@@ -82,6 +89,12 @@ a few notes stating what's missing and/or how you would improve the solution if 
         * Web layer Unit testing using MockMvc, Mockito or similar
         * RestAssured for integration testing
     * Ideally method names would follow a more scalable convention (e.g. If/When/Then..)
+* Services & Purchases could have inherited from a parent object:
+    * PROS: less duplication of code
+    * CONS:
+        * not much gain at this point. i.e. no requirement / use-case that would be enabled with such abstraction.
+        * more complicated implementation
+        * possible divergence down the road would result in more effort in refactoring
 
 * Learning & References:
     * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
