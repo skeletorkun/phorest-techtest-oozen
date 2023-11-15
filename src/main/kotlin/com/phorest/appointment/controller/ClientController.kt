@@ -1,6 +1,7 @@
 package com.phorest.appointment.controller
 
 import com.phorest.appointment.dto.ClientDto
+import com.phorest.appointment.dto.TopClientResponseDto
 import com.phorest.appointment.service.ClientService
 import com.phorest.appointment.service.CsvService
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -8,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.util.*
 
 @RestController
@@ -23,11 +26,12 @@ private class ClientController(
     fun topClientsByLoyalty(
         @RequestParam("size") size: Int,
         @RequestParam("sinceDate") @DateTimeFormat(pattern = "yyyy-MM-dd") sinceDate: Date,
-    ): ResponseEntity<List<ClientDto>> {
+    ): ResponseEntity<List<TopClientResponseDto>> {
         logger.debug { "topClientsByLoyalty size:${size} sinceDate:${sinceDate}" }
 
-        val clients = clientService.getTopClientsByLoyalty(size, sinceDate)
-        logger.debug { "calculated ${clients?.size} clients successfully" }
+        val offsetDateTime: OffsetDateTime = sinceDate.toInstant().atOffset(ZoneOffset.UTC)
+        val clients = clientService.getTopClientsByLoyalty(size, offsetDateTime)
+        logger.debug { "calculated ${clients.size} clients successfully" }
 
         return ResponseEntity.ok(clients)
     }

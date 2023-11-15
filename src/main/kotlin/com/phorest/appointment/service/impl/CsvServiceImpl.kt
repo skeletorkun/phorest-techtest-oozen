@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.BufferedReader
 import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
 
 @Service
@@ -29,9 +30,13 @@ class CsvServiceImpl : CsvService {
 
     override fun <T> uploadCsvFile(file: MultipartFile, type: Class<T>): MutableList<T> {
         throwIfFileEmpty(file)
+        return uploadCsvFile(file.inputStream, type)
+    }
+
+    fun <T> uploadCsvFile(inputStream: InputStream, type: Class<T>): MutableList<T> {
         var fileReader: BufferedReader? = null
         try {
-            fileReader = BufferedReader(InputStreamReader(file.inputStream))
+            fileReader = BufferedReader(InputStreamReader(inputStream))
             val csvToBean = createCSVToBean(fileReader, type)
             return csvToBean.parse()
         } catch (ex: Exception) {

@@ -30,14 +30,42 @@ Launch H2 Console
 http://localhost:8080/h2-console
 ```
 
+### Examples
+
 Populate the DB
 
 * Parse CSV files separately for each resource, in-order: clients, appointments, services &/ purchases
 * File size is limited to 2MB (see application.yaml)
 
-### Examples
+Clients:
 
-Creating a new Appointment
+```
+curl --location 'http://localhost:8080/v1/clients/csv' \
+--form 'file=@"/Users/orkun/workspace/playground/appointment-service/build/resources/test/csv/clients.csv"'
+```
+
+Appointments:
+
+```
+curl --location 'http://localhost:8080/v1/appointments/csv' \
+--form 'file=@"/Users/orkun/Downloads/backend-tech-test/appointments.csv"'
+```
+
+Purchases:
+
+```
+curl --location 'http://localhost:8080/v1/purchases/csv?type=SERVICE' \
+--form 'file=@"/Users/orkun/workspace/playground/appointment-service/src/test/resources/csv/services.csv"'
+```
+
+Services:
+
+```
+curl --location 'http://localhost:8080/v1/purchases/csv?type=PRODUCT' \
+--form 'file=@"/Users/orkun/workspace/playground/appointment-service/build/resources/test/csv/purchases.csv"'
+```
+
+Create a new Appointment:
 
 ```
 curl --location 'http://localhost:8080/v1/appointments' \
@@ -49,7 +77,7 @@ curl --location 'http://localhost:8080/v1/appointments' \
 }'
 ```
 
-Retrieving an Appointment by id
+Retrieve an Appointment by ID:
 
 ```
 curl --location 'http://localhost:8080/v1/appointments/e0b8ebfc-6e57-4661-9546-328c644a3764' \
@@ -89,16 +117,8 @@ a few notes stating what's missing and/or how you would improve the solution if 
         * Web layer Unit testing using MockMvc, Mockito or similar
         * RestAssured for integration testing
     * Ideally method names would follow a more scalable convention (e.g. If/When/Then..)
-* Services & Purchases could have inherited from a parent object:
-    * PROS: less duplication of code
-    * CONS:
-        * not much gain at this point. i.e. no requirement / use-case that would be enabled with such abstraction.
-        * more complicated implementation
-        * possible divergence down the road would result in more effort in refactoring
-
 * Learning & References:
     * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
     * https://codersee.com/upload-csv-file-in-spring-boot-rest-api-with-kotlin-and-opencsv
-    *
 
 * Some commits are without tests, ideally we could break a feature in small PRs with good test coverage, squashed commits..etc  
