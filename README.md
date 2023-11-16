@@ -93,21 +93,22 @@ curl --location 'http://localhost:8080/v1/clients/top?size=100&sinceDate=2001-01
 
 # Notes on Submission
 
-* Committed directly to main branch. Ideally we would provide a pull request to a protected (master) branch.  
-  branch
+* Committed directly to main branch. Ideally we would provide a pull request to a protected master / main.  
 * A note on Testing and coverage:
-    * The test coverage is not adequate for production but it should showcase different types such as:
+    * The test coverage is obviously not adequate for production but it should showcase different types such as:
         * Integration tests - IT
         * Web layer tests via MockMVC
         * Unit tests on Junit
     * We would ideally keep only a handful of end-to-end tests and have more integration tests and a lot of unit tests.
-* Learning & References:
-    * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
-    * https://codersee.com/upload-csv-file-in-spring-boot-rest-api-with-kotlin-and-opencsv
 
 Improvement points:
 
-* Validation is done via Kotlin null checks - hence no need for @NotNull / @NotBlank.
-    * That said, the CSV parser requires empty constructors to work so I had to initialize the fields in the DTOs.
+* Validation is done via Kotlin null checks but no futher Validation using @NotNull / @NotBlank 
+    * The CSV parser requires empty constructors to work so I had to initialize the fields in the DTOs.
     * The solution would be to use different DTOs for the CSV parsing and the REST bodies. But omitted to avoid further code bloat
-* Some commits are without tests, we would normally break a feature in small PRs with good test coverage, squashed commits..etc  
+* Some commits are without tests, we would normally break a feature in small PRs with good test coverage, squashed commits..etc.
+
+  
+Learning & References:
+    * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
+    * https://codersee.com/upload-csv-file-in-spring-boot-rest-api-with-kotlin-and-opencsv
