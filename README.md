@@ -7,9 +7,7 @@ A microservice that exposes REST endpoints
     * have accumulated the most loyalty points
     * since Y date (endpoint parameter eg: 2018-01-01)
     * excluding any banned clients.
-* to update one of the entities
-* to fetch a single entity by id
-* to delete one of the entities
+* to update, delete and fetch a single client by id
 
 # System requirements
 
@@ -36,6 +34,8 @@ Populate the DB
 
 * Parse CSV files separately for each resource, in-order: clients, appointments, services &/ purchases
 * File size is limited to 2MB (see application.yaml)
+* Some examples are below. Also, a postman collection is provided in the resources:
+    * resources/postman/appointment-service-oozen.postman_collection.json
 
 Clients:
 
@@ -84,41 +84,30 @@ curl --location 'http://localhost:8080/v1/appointments/e0b8ebfc-6e57-4661-9546-3
 --header 'Content-Type: application/json'
 ```
 
-We would expect a simple web application that would expose few REST api endpoints:
+Retrieve Top Clients by Loyalty Points:
 
-* an endpoint to consume and parse csv files and import data into some database
-* an endpoint to list the top X number (endpoint parameter eg: 50) of clients that have accumulated the most loyalty points since Y date (
-  endpoint parameter eg: 2018-01-01). Please exclude any banned clients.
-
-Nice to have:
-
-* at least one endpoint to update one of the entities
-* an endpoint to fetch a single entity by id
-* an endpoint to delete one of the entities
-
-Endpoints should be designed with RESTful best practices. Request/response bodies should be in json format. Remember about the validation.
-
-Do as much as you can in the time you have available to you. Please still submit your solution even if it's not complete. You can always add
-a few notes stating what's missing and/or how you would improve the solution if you had more time.
+```
+curl --location 'http://localhost:8080/v1/clients/top?size=100&sinceDate=2001-01-01' \
+--header 'Content-Type: application/json'
+```
 
 # Notes on Submission
 
-* Chose to implement in Kotlin instead of Java. Omitted Javadoc on methods for brevity.
 * Committed directly to main branch. Ideally we would provide a pull request to a protected (master) branch.  
   branch
 * A note on Testing and coverage:
-    * Created only a handful tests mostly around appointments - the central object.
-    * Tests on the other services and entity relationships are omitted for now for time sake.
-        * AppointmentControllerTest.csvImport - an end-to-end test that covers the entire flow from controller to repository
-            * with entity relationships
-            * CSV import functionality
+    * The test coverage is not adequate for production but it should showcase different types such as:
+        * Integration tests - IT
+        * Web layer tests via MockMVC
+        * Unit tests on Junit
     * We would ideally keep only a handful of end-to-end tests and have more integration tests and a lot of unit tests.
-    * No libs were used apart from Junit. we could use
-        * Web layer Unit testing using MockMvc, Mockito or similar
-        * RestAssured for integration testing
-    * Ideally method names would follow a more scalable convention (e.g. If/When/Then..)
 * Learning & References:
     * https://www.udemy.com/course/build-restful-apis-using-kotlin-and-spring-boot
     * https://codersee.com/upload-csv-file-in-spring-boot-rest-api-with-kotlin-and-opencsv
 
-* Some commits are without tests, ideally we could break a feature in small PRs with good test coverage, squashed commits..etc  
+Improvement points:
+
+* Validation is done via Kotlin null checks - hence no need for @NotNull / @NotBlank.
+    * That said, the CSV parser requires empty constructors to work so I had to initialize the fields in the DTOs.
+    * The solution would be to use different DTOs for the CSV parsing and the REST bodies. But omitted to avoid further code bloat
+* Some commits are without tests, we would normally break a feature in small PRs with good test coverage, squashed commits..etc  

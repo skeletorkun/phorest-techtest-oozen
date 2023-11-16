@@ -6,7 +6,9 @@ import com.phorest.appointment.service.ClientService
 import com.phorest.appointment.service.CsvService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.format.annotation.DateTimeFormat
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.time.OffsetDateTime
@@ -15,14 +17,35 @@ import java.util.*
 
 @RestController
 @RequestMapping("/v1/clients")
-private class ClientController(
+class ClientController(
     val csvService: CsvService,
     val clientService: ClientService
 ) {
 
     private val logger = KotlinLogging.logger {}
 
-    @PostMapping("/top")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun addClient(@RequestBody @Validated clientDto: ClientDto): ClientDto {
+        return clientService.addClient(clientDto);
+    }
+
+    @GetMapping("/{id}")
+    fun retrieveClient(@PathVariable("id") id: UUID): ClientDto {
+        return clientService.retrieveClientById(id);
+    }
+
+    @PatchMapping("/{id}")
+    fun updateClient(@RequestBody @Validated clientDto: ClientDto): ClientDto {
+        return clientService.updateClient(clientDto);
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteClient(@PathVariable id: UUID) {
+        return clientService.deleteClient(id);
+    }
+
+    @GetMapping("/top")
     fun topClientsByLoyalty(
         @RequestParam("size") size: Int,
         @RequestParam("sinceDate") @DateTimeFormat(pattern = "yyyy-MM-dd") sinceDate: Date,

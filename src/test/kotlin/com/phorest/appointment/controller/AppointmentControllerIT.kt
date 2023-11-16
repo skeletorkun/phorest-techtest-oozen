@@ -25,7 +25,7 @@ import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-internal class AppointmentControllerTest {
+internal class AppointmentControllerIT {
 
     @Autowired
     lateinit var clientRepository: ClientRepository
@@ -58,7 +58,7 @@ internal class AppointmentControllerTest {
     }
 
     @Test
-    fun retrieveAppointment() {
+    fun `When GET an appointment by id then return result`() {
 
         val savedAppointment = appointmentRepository.save(
             Appointment(
@@ -85,7 +85,17 @@ internal class AppointmentControllerTest {
 
 
     @Test
-    fun addAppointment() {
+    fun `When GET an appointment by id, if not found, then return 404`() {
+
+        webTestClient.get()
+            .uri("/v1/appointments/" + "e0b8ebfc-6e57-4661-9546-328c644a3123")
+            .exchange()
+            .expectStatus().isNotFound
+    }
+
+
+    @Test
+    fun `When POST a new appointment then return saved object`() {
 
         val clientId = savedClient!!.id
         val startTime = parseOffsetDateTime("2018-05-02 12:45:00 +0100")
@@ -108,7 +118,7 @@ internal class AppointmentControllerTest {
 
 
     @Test
-    fun csvImport() {
+    fun `When POST a CSV file is received then store and return objects`() {
 
         val file = ClassPathResource("csv/appointments_small.csv").file
 

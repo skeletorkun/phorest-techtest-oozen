@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "5d629642-f69e-459d-9369-5eb077908701",
+		"name": "appointment-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1395610"
+	},
+	"item": [
+		{
+			"name": "csv",
+			"item": [
+				{
+					"name": "clients csv",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/orkun/workspace/playground/appointment-service/build/resources/test/csv/clients.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/clients/csv",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients",
+								"csv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointments csv",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/orkun/workspace/playground/appointment-service/build/resources/test/csv/clients.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/clients/csv",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients",
+								"csv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchases csv",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/orkun/workspace/playground/appointment-service/build/resources/test/csv/purchases.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/purchases/csv?type=PRODUCT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"purchases",
+								"csv"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "PRODUCT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "services csv",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/orkun/workspace/playground/appointment-service/build/resources/test/csv/purchases.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/services/csv",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"services",
+								"csv"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "new client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"id\": \"e0b8ebfc-6e57-4661-9546-328c644a3999\",\n    \"firstName\": \"Orkun\",\n    \"lastName\": \"Ozen\",\n    \"email\": \"orkun@ozen.net\",\n    \"phone\": \"(272) 301-6356\",\n    \"gender\": \"Male\",\n    \"isBanned\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/clients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/clients/e0b8ebfc-6e57-4661-9546-328c644a3999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients",
+								"e0b8ebfc-6e57-4661-9546-328c644a3999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "top clients by loyalty",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/clients/top?size=100&sinceDate=2001-01-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients",
+								"top"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "100"
+								},
+								{
+									"key": "sinceDate",
+									"value": "2001-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/clients/e0b8ebfc-6e57-4661-9546-328c644a3999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients",
+								"e0b8ebfc-6e57-4661-9546-328c644a3999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client by id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"id\": \"e0b8ebfc-6e57-4661-9546-328c644a3999\",\n    \"firstName\": \"Orkun\",\n    \"lastName\": \"Ozen\",\n    \"email\": \"orkun@ozen.net\",\n    \"phone\": \"(272) 301-9999\",\n    \"gender\": \"Male\",\n    \"isBanned\": true\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/clients/e0b8ebfc-6e57-4661-9546-328c644a3999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"clients",
+								"e0b8ebfc-6e57-4661-9546-328c644a3999"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "appointment",
+			"item": [
+				{
+					"name": "new appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": null,\n  \"clientId\": \"e0b8ebfc-6e57-4661-9546-328c644a3764\",\n  \"startTime\": \"2016-02-07 17:15:00 +0100\",\n  \"endTime\": \"2016-02-07 17:15:00 +0100\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "appointment by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": null,\n  \"clientId\": \"e0b8ebfc-6e57-4661-9546-328c644a3764\",\n  \"startTime\": \"2016-02-07 17:15:00\",\n  \"endTime\": \"2016-02-07 17:15:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/appointments/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all appointments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": null,\n  \"clientId\": \"e0b8ebfc-6e57-4661-9546-328c644a3764\",\n  \"startTime\": \"2016-02-07 17:15:00\",\n  \"endTime\": \"2016-02-07 17:15:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

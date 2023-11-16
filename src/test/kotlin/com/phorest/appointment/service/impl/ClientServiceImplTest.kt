@@ -71,7 +71,7 @@ internal class ClientServiceImplTest {
     }
 
     @Test
-    fun getTopClientsByLoyalty() {
+    fun `When getTopClientsByLoyalty for size and a sinceDate then return top clients`() {
 
         var topClientsByLoyalty = clientService.getTopClientsByLoyalty(100, parseOffsetDateTime("2000-01-01 00:00:00 +0000"))
         assertEquals(90, topClientsByLoyalty.size)

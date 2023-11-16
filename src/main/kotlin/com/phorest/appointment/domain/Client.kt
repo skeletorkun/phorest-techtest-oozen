@@ -1,5 +1,6 @@
 package com.phorest.appointment.domain
 
+import com.phorest.appointment.dto.ClientDto
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -43,3 +44,14 @@ data class Client(
         return this::class.simpleName + "(id = $id , firstName = $firstName , lastName = $lastName , email = $email , phone = $phone , gender = $gender , isBanned = $isBanned )"
     }
 }
+
+fun Client.toDto() = ClientDto(
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.gender,
+    this.isBanned
+)
+

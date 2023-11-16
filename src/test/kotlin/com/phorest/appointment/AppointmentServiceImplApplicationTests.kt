@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 class AppointmentServiceImplApplicationTests {
 
     @Test
-    fun contextLoads() {
+    fun `When application starts then context is loaded`() {
     }
 
 }

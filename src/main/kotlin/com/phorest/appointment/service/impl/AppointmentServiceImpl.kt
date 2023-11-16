@@ -3,6 +3,7 @@ package com.phorest.appointment.service.impl
 import com.phorest.appointment.domain.Appointment
 import com.phorest.appointment.domain.toDto
 import com.phorest.appointment.dto.AppointmentDto
+import com.phorest.appointment.exception.ResourceNotFoundException
 import com.phorest.appointment.repository.AppointmentRepository
 import com.phorest.appointment.repository.ClientRepository
 import com.phorest.appointment.service.AppointmentService
@@ -25,7 +26,7 @@ class AppointmentServiceImpl(
 
     override fun retrieveAppointment(id: UUID): AppointmentDto {
         logger.debug { "retrieving appointment id $id" }
-        val appointment = appointmentRepository.findById(id).orElseThrow()
+        val appointment = appointmentRepository.findById(id).orElseThrow { ResourceNotFoundException() }
         return appointment.toDto()
     }
 
@@ -54,7 +55,7 @@ class AppointmentServiceImpl(
         appointmentDto.id,
         appointmentDto.startTime,
         appointmentDto.endTime,
-        appointmentDto.clientId?.let { clientRepository.findById(it).orElseThrow() }
+        appointmentDto.clientId?.let { clientRepository.findById(it).orElseThrow { ResourceNotFoundException() } }
     )
 }
 

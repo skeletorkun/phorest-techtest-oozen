@@ -3,6 +3,7 @@ package com.phorest.appointment.service.impl
 import com.phorest.appointment.domain.Purchase
 import com.phorest.appointment.dto.PurchaseDto
 import com.phorest.appointment.enums.PurchaseType
+import com.phorest.appointment.exception.ResourceNotFoundException
 import com.phorest.appointment.repository.AppointmentRepository
 import com.phorest.appointment.repository.PurchaseRepository
 import com.phorest.appointment.service.PurchaseService
@@ -22,7 +23,9 @@ class PurchaseServiceImpl(
                 it.price,
                 it.loyaltyPoints,
                 type,
-                it.appointmentId?.let { id -> appointmentRepository.findById(id).orElseThrow() }
+                it.appointmentId?.let { id ->
+                    appointmentRepository.findById(id).orElseThrow { ResourceNotFoundException() }
+                }
             )
         }
 
